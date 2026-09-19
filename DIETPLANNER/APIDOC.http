@@ -1,0 +1,222 @@
+# api for register
+###
+POST http://127.0.0.1:8003/user
+Content-Type: application/json
+
+{
+    "username":"asd",
+    "email":"asd@gmail.com",
+    "phone":"93079687650",
+    "password1":"asd@123",
+    "password2":"asd@123"
+}
+
+
+#api for token authentication
+###
+POST http://127.0.0.1:8003/token
+Content-Type: application/json
+
+{
+    "username":"asd",
+    "password":"asd@123"
+}
+
+#api for token authentication
+###
+POST http://127.0.0.1:8003/token
+Content-Type: application/json
+
+{
+    "username":"94079687650",
+    "password":"xyz@123"
+}
+
+###
+@token=7bcc3a5cad48c4fef371638e060b164fca1731b3
+
+#api call for profile create
+###
+POST http://127.0.0.1:8003/profile
+Content-Type: application/json
+Authorization: Token {{token}}
+
+{
+    "age":22,
+    "weight":60,
+    "height":1.71,
+    "gender":"female",
+    "activity_level":"light",
+    "goal":"weight_gain"
+
+}
+
+#api call for profile detail View
+###
+GET http://127.0.0.1:8003/detail
+Authorization: Token {{token}}
+
+#api call for profile update
+###
+PUT http://127.0.0.1:8003/detail
+Content-Type: application/json
+Authorization: Token {{token}}
+
+
+{
+  "id": 3,
+  "age": 25,
+  "gender": "male",
+  "weight": "64.00",
+  "height": "1.81",
+  "target_weight": null,
+  "duration": null,
+  "activity_level": "light",
+  "goal": "weight_gain",
+  "daily_calorie_goal": null,
+  "profile_pic": null,
+  "bmi": "16.48",
+  "created_at": "2026-09-02T11:24:50.679515Z",
+  "user": 2
+}
+
+#api call for Food create
+
+###
+POST http://127.0.0.1:8003/foodlog
+Content-Type: application/json
+Authorization: Token {{token}}
+
+{
+    "title":"dosa",
+    "meal_type":"dinner",
+    "quantity":4,
+    "calories":200
+}
+
+#api call list food
+
+###
+GET http://127.0.0.1:8003/foodlog
+Authorization: Token {{token}}
+
+#api for foodlog detailview
+###
+GET http://127.0.0.1:8003/foodlog/detail/2
+Authorization: Token {{token}}
+
+
+#api call for listing  food log from 2026_09-03 to 2026-09-04
+#GET call http://127.0.0.1:8003/foodlog/?start_date=2026-09-04 &end_date=2026-09-05
+#optional query parameter
+
+###
+GET http://127.0.0.1:8003/foodlog/?start_date=2026-09-03&end_date=2026-09-04
+Authorization: Token {{token}}
+
+
+
+#api call for listing food log of yesterday
+###
+GET http://127.0.0.1:8003/foodlog/?filter_type=yesterday
+Authorization: Token {{token}}
+
+# api call food log of last week
+###
+GET http://127.0.0.1:8003/foodlog/?filter_type=last_week
+Authorization: Token {{token}}
+
+#api call for  update
+###
+PUT http://127.0.0.1:8003/foodlog/detail/2
+Content-Type: application/json
+Authorization: Token {{token}}
+
+{
+  "id": 2,
+  "user": "abc",
+  "title": "idiappam",
+  "image": null,
+  "meal_type": "breakfast",
+  "quantity": "2",
+  "calorie": null,
+  "protein": null,
+  "consumed_at": null,
+  "created_at": "2026-09-03T10:58:34.721654Z",
+  "updated_at": "2026-09-03T10:58:34.721680Z"
+}
+
+#api call for delete
+###
+DELETE http://127.0.0.1:8003/foodlog/detail/1
+Authorization: Token {{token}}
+
+
+##################JWT
+###############
+
+###
+POST http://127.0.0.1:8003/access
+Content-Type: application/json
+
+{
+    "username":"abc",
+    "password":"abc@123"
+}
+
+###
+@access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg4NTIzMjM5LCJpYXQiOjE3ODg1MjI5MzksImp0aSI6ImFmNGU4YTQ2NTkyZDQ5ODM4NDQxY2FkNmU4OTg5ODQ0IiwidXNlcl9pZCI6IjIifQ.m_IJANuxo2jwGlN5lJMmHH8U96878tXMP0zgvKSGbCU
+###
+GET http://127.0.0.1:8003/foodlog/detail/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg4NTIzMjM5LCJpYXQiOjE3ODg1MjI5MzksImp0aSI6ImFmNGU4YTQ2NTkyZDQ5ODM4NDQxY2FkNmU4OTg5ODQ0IiwidXNlcl9pZCI6IjIifQ.m_IJANuxo2jwGlN5lJMmHH8U96878tXMP0zgvKSGbCU
+
+
+#Access will expire
+
+
+###
+POST http://127.0.0.1:8003/refresh
+Content-Type: application/json
+
+{
+
+    "refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc4ODYwOTc1MCwiaWF0IjoxNzg4NTIzMzUwLCJqdGkiOiJmNmQ2NzczNGQyYjM0YWE5OWMyMGI3MDNlYzhmYmYyNCIsInVzZXJfaWQiOiIyIn0.cx5FIqqULM-a8YRtrH6wWiJaipIh7lpTf6zDppVL7g0"
+}
+
+#api call for diet plan
+###
+POST http://127.0.0.1:8003/diet/plan
+Content-Type: application/json
+Authorization: Token {{token}}
+
+{
+    "goal":"weight_gain",
+    "duration":2,
+    "target_weight":55
+}
+
+#api call for summary view
+###
+GET http://127.0.0.1:8003/summary
+Authorization: Token {{token}}
+
+#api call for summary view
+###
+GET http://127.0.0.1:8003/summary?filter_type=yesterday
+Authorization: Token {{token}}
+
+#api call for summary view
+###
+GET http://127.0.0.1:8003/summary?filter_type=last_week
+Authorization: Token {{token}}
+
+
+#api call for payment create
+###
+POST http://127.0.0.1:8003/payment/create
+Authorization: Token {{token}}
+
+#api call for payment update
+###
+POST http://127.0.0.1:8003/payment/verify
+Authorization: Token {{token}}
